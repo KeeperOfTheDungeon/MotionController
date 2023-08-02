@@ -2,7 +2,7 @@ from time import sleep
 
 
 
-from RoboControl.Com.Connection.SerialConnection import SerialConnection
+from RoboControl.Com.Connection.PicoConnection import PicoConnection
 from RoboControl.Robot.HardwareDevice.HardwareDevice import HardwareDevice
 
 
@@ -18,10 +18,10 @@ class MotionController(HardwareDevice):
 #			self._data_hub.remote_ping_device()
 			sleep(1)
 
-	"""def connect(self, connection: SerialConnection) -> None:
+def connect(self, connection: PicoConnection) -> None:
 		self._connection = connection
-		super().connect(connection)
-"""
+		#super().connect(connection)
+
 """
 	def run(self):
 		while True:
