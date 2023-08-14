@@ -21,5 +21,5 @@ class MotionController(HardwareDevice):
 
     def connect(self, connection: PicoConnection) -> None:
         self._connection = connection
-        self._connection.connect(None)
+        self._connection.connect(self)  #ToDo insert receiver here
         pass
