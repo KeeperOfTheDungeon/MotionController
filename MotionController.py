@@ -16,10 +16,10 @@ class MotionController(HardwareDevice):
     def run(self):
         print("device - run")
         while True:
-#			self._data_hub.remote_ping_device()
             sleep(1)
 
     def connect(self, connection: PicoConnection) -> None:
         self._connection = connection
-        self._connection.connect(self)  #ToDo insert receiver here
+        self._connection.connect()  #ToDo insert receiver here
         pass
+
