@@ -12,8 +12,8 @@ from RoboControl.Robot.AbstractRobot.Config.DeviceConfig import DeviceConfig
 class MotionController(HardwareDevice):
     def __init__(self):
         super().__init__(DeviceConfig(1, "MotionController"))
+        #self.connect(PicoConnection())
         self.connect(PicoConnection())
-
 
     def run(self):
         print("device - run")
@@ -24,7 +24,14 @@ class MotionController(HardwareDevice):
             self._connection._data_output.transmit(data_packet)
 
     def connect(self, connection: PicoConnection) -> None:
+        print("connecting")
         self._connection = connection
-        self._connection.connect()  #ToDo insert receiver here
+        self._connection.connect(self)  #ToDo insert receiver here
+        print("connected")
         pass
 
+    def receive(self,data_packet):
+        print("received")
+        print(data_packet)
+
+#print(remote_data)
