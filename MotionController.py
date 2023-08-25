@@ -5,9 +5,8 @@ from time import sleep
 from RoboControl.Com.Connection.PicoConnection import PicoConnection
 from RoboControl.Com.Remote.RemoteData import RemoteData
 from RoboControl.Com.Remote.RemoteDataPacket import RemoteDataPacket
-from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
 from RoboControl.Robot.AbstractRobot.Config.DeviceConfig import DeviceConfig
-
+from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
 
 class MotionController(PicoDevice):
     def __init__(self):
@@ -24,13 +23,18 @@ class MotionController(PicoDevice):
         self._received = False
         self._data_packet = None
         
+        self.build_protocol()
+        
+        
     def run(self):
         print("device - run")
         while True:
             if (self._received == True):
                 print(self._data_packet)
+                super().parse_data_packet(self._data_packet)  ## add to queue convert from there
                 self._received = False
-            
+                
+            #self.remote_ping_device()
 #            input("\nHit enter to send ping")
  #           data_packet = RemoteDataPacket(11, 1, 3)
   #          data_packet.set_remote_data(RemoteData(300, 'The coolest', 'The coolest data'))
@@ -44,7 +48,8 @@ class MotionController(PicoDevice):
         
         
 
-    def receive(self,data_packet):
+    def parse_data_packet(self,data_packet):
+  
         print("received")
         ## ToDo put into Queue !
         self._received = True
