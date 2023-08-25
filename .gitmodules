@@ -1,3 +1,6 @@
 [submodule "RoboControl"]
 	path = RoboControl
 	url = https://github.com/KeeperOfTheDungeon/RoboControl.git
+[submodule "PicoControl"]
+	path = PicoControl
+	url = https://github.com/KeeperOfTheDungeon/PicoControl.git

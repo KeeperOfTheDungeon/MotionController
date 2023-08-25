@@ -3,23 +3,51 @@ from time import sleep
 
 
 from RoboControl.Com.Connection.PicoConnection import PicoConnection
-from RoboControl.Robot.HardwareDevice.HardwareDevice import HardwareDevice
+from RoboControl.Com.Remote.RemoteData import RemoteData
+from RoboControl.Com.Remote.RemoteDataPacket import RemoteDataPacket
+from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
 from RoboControl.Robot.AbstractRobot.Config.DeviceConfig import DeviceConfig
 
 
-class MotionController(HardwareDevice):
+class MotionController(PicoDevice):
     def __init__(self):
         super().__init__(DeviceConfig(1, "MotionController"))
-        self.connect(PicoConnection())
-
-
+        #self.connect(PicoConnection())
+        meta_data = dict()
+        meta_data["Cherry"] = 1
+        meta_data["Cherry"] = 10
+        
+        meta_data["rx_pin"]	= 0		#set receiver pin in meta data
+        meta_data["tx_pin"] = 1		#set tranceiver pin in meta data
+        
+        self.connect(PicoConnection(meta_data))
+        self._received = False
+        self._data_packet = None
+        
     def run(self):
         print("device - run")
         while True:
-#			self._data_hub.remote_ping_device()
-            sleep(1)
+            if (self._received == True):
+                print(self._data_packet)
+                self._received = False
+            
+#            input("\nHit enter to send ping")
+ #           data_packet = RemoteDataPacket(11, 1, 3)
+  #          data_packet.set_remote_data(RemoteData(300, 'The coolest', 'The coolest data'))
+   #         self._connection._data_output.transmit(data_packet)
 
     def connect(self, connection: PicoConnection) -> None:
+        print("connecting")
         self._connection = connection
         self._connection.connect(self)  #ToDo insert receiver here
-        pass
+        print("connected")
+        
+        
+
+    def receive(self,data_packet):
+        print("received")
+        ## ToDo put into Queue !
+        self._received = True
+        self._data_packet = data_packet
+
+#print(remote_data)
