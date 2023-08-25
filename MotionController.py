@@ -42,7 +42,8 @@ class MotionController(PicoDevice):
                 print(self._data_packet)
                 super().parse_data_packet(self._data_packet)  ## add to queue convert from there
                 self._received = False
-                
+            self.remote_ping_device()
+            sleep(.5)
             #self.remote_ping_device()
 #            input("\nHit enter to send ping")
  #           data_packet = RemoteDataPacket(11, 1, 3)
