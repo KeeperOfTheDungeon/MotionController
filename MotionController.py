@@ -13,17 +13,26 @@ class MotionController(PicoDevice):
         super().__init__(DeviceConfig(1, "MotionController"))
         #self.connect(PicoConnection())
         meta_data = dict()
-        meta_data["Cherry"] = 1
-        meta_data["Cherry"] = 10
         
         meta_data["rx_pin"]	= 0		#set receiver pin in meta data
         meta_data["tx_pin"] = 1		#set tranceiver pin in meta data
-        
-        self.connect(PicoConnection(meta_data))
+        self._connection = PicoConnection(meta_data)
+        self.connect(self._connection)
         self._received = False
         self._data_packet = None
         
         self.build_protocol()
+    
+        #commection gest output
+        self.set_transmitter(self._connection)
+    
+    def build_protocol(self):
+        print ("Dev : Build Protocol")
+        super().build_protocol()
+        
+      #  self._remote_command_processor_list.append(
+       #     RemoteProcessor(Cmd_ping(DeviceProtocol.CMD_PING), self.process_led_on_command))  +insert KED 
+
         
         
     def run(self):
