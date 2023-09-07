@@ -16,6 +16,7 @@ class MotionController(PicoDevice):
         
         meta_data["rx_pin"]	= 0		#set receiver pin in meta data
         meta_data["tx_pin"] = 1		#set tranceiver pin in meta data
+        meta_data["clock_pin"] = 2
         self._connection = PicoConnection(meta_data)
         self.connect(self._connection)
         self._received = False
