@@ -1,12 +1,11 @@
 from time import sleep
 
-
-
-from RoboControl.Com.Connection.PicoConnection import PicoConnection
-from RoboControl.Com.Remote.RemoteData import RemoteData
-from RoboControl.Com.Remote.RemoteDataPacket import RemoteDataPacket
-from RoboControl.Robot.AbstractRobot.Config.DeviceConfig import DeviceConfig
+from PicoControl.Com.PicoConnection import PicoConnection
 from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
+
+from RoboControl.Com.RemoteData import RemoteData
+from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
+from RoboControl.Robot.AbstractRobot.Config.DeviceConfig import DeviceConfig
 
 class MotionController(PicoDevice):
     def __init__(self):
