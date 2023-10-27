@@ -5,7 +5,7 @@ from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
 
 from RoboControl.Com.RemoteData import RemoteData
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
-from RoboControl.Robot.AbstractRobot.Config.DeviceConfig import DeviceConfig
+from RoboControl.Robot.AbstractRobot.DeviceConfig import DeviceConfig
 
 class MotionController(PicoDevice):
     def __init__(self):
@@ -13,8 +13,8 @@ class MotionController(PicoDevice):
         #self.connect(PicoConnection())
         meta_data = dict()
         
-        meta_data["rx_pin"]	= 0		#set receiver pin in meta data
-        meta_data["tx_pin"] = 1		#set tranceiver pin in meta data
+        meta_data["rx_pin"]	= 1		#set receiver pin in meta data
+        meta_data["tx_pin"] = 0		#set tranceiver pin in meta data
         meta_data["clock_pin"] = 2
         self._connection = PicoConnection(meta_data)
         self.connect(self._connection)
@@ -37,12 +37,17 @@ class MotionController(PicoDevice):
         
     def run(self):
         print("device - run")
+        counter = 0
         while True:
             if (self._received == True):
-                print(self._data_packet)
+                print("received : ",self._data_packet)
                 super().parse_data_packet(self._data_packet)  ## add to queue convert from there
                 self._received = False
-            self.remote_ping_device()
+                
+            if (counter == 10):   
+                super().remote_ping_device()
+                counter = 0
+            counter +=1
             sleep(.5)
             #self.remote_ping_device()
 #            input("\nHit enter to send ping")
