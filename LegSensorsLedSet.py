@@ -1,10 +1,10 @@
 from Config import AntComponents
-from RoboControl.Robot.Component.Actor.Led import LedSet
+from LedPico import LedSetPico
 
 
 
 
-class LegSensorsLedSet(LedSet):
+class LegSensorsLedSet(LedSetPico):
 
     def __init__(self, protocol):
         AntComponents.FRONT_LEFT_LEG_LED["protocol"] = protocol
@@ -25,14 +25,4 @@ class LegSensorsLedSet(LedSet):
 
         super().__init__(actor_list, protocol)
 
-    def get_command_processors(self):
-        command_list = super().get_command_processors()
-        return command_list
 
-    def get_message_processors(self):
-        msg_list = super().get_message_processors()
-        return msg_list
-
-    def get_stream_processors(self):
-        stream_list = super().get_stream_processors()
-        return stream_list

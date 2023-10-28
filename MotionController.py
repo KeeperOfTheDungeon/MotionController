@@ -10,6 +10,7 @@ from RoboControl.Robot.AbstractRobot.DeviceConfig import DeviceConfig
 
 MOTION_CONTROLLER_ID = 13
 
+import micropython
 
 #for led test
 from LegSensorsLedSet import LegSensorsLedSet
@@ -47,26 +48,12 @@ class MotionController(PicoDevice):
     
     def build_led_protocol(self):
         print ("Dev : Build Protocol")
-        
-        
-        
+       
         self.add_command_processor_list(self._led_set.get_command_processors())
         self.add_message_processor_list(self._led_set.get_message_processors())
         self.add_stream_processor_list(self._led_set.get_stream_processors())
 
-
-        
-      #  self._remote_command_processor_list.append(
-       #     RemoteProcessor(Cmd_ping(DeviceProtocol.CMD_PING), self.process_led_on_command))  +insert KED 
-        
-        
-    def decode_command(self, remote_command):
-        if isinstance(remote_command, Cmd_setLedBrightness):
-            print("led is bright")
-            ##self.process_ping_command(remote_command)
-            return True   
-        
-        
+     
         
     def run(self):
         print("device - run")
@@ -105,6 +92,7 @@ class MotionController(PicoDevice):
         if (data_packet.get_destination_address() == self._id):
             self._received = True
             self._data_packet = data_packet
+            micropython.mem_info()
         else:
             print("not for me", self._id )
 
