@@ -7,12 +7,21 @@ from RoboControl.Com.RemoteData import RemoteData
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
 from RoboControl.Robot.AbstractRobot.DeviceConfig import DeviceConfig
 
+
+MOTION_CONTROLLER_ID = 13
+
+
+#for led test
+from LegSensorsLedSet import LegSensorsLedSet
+from RoboControl.Robot.Component.Actor.LedProtocol import Cmd_getLedBrightness, Cmd_setLedBrightness
+from LegSensorsProtocol import LegSensorsProtocol
+
 class MotionController(PicoDevice):
     def __init__(self):
-        super().__init__(DeviceConfig(1, "MotionController"))
+        super().__init__(DeviceConfig(MOTION_CONTROLLER_ID, "MotionController"))
         #self.connect(PicoConnection())
         meta_data = dict()
-        
+        print("init motion")
         meta_data["rx_pin"]	= 1		#set receiver pin in meta data
         meta_data["tx_pin"] = 0		#set tranceiver pin in meta data
         meta_data["clock_pin"] = 2
@@ -21,18 +30,42 @@ class MotionController(PicoDevice):
         self._received = False
         self._data_packet = None
         
-        self.build_protocol()
-    
         #commection gest output
         self.set_transmitter(self._connection)
+        
+    def build(self):    
+        super().build()
+        # leds
+        print("add led set")
+        self._protocol = LegSensorsProtocol(self)
+        self._led_set = LegSensorsLedSet(self._protocol.get_led_protocol())
+        self.add_component_set(self._led_set)
+    #leds
+        self.build_led_protocol()
     
-    def build_protocol(self):
+
+    
+    def build_led_protocol(self):
         print ("Dev : Build Protocol")
-        super().build_protocol()
+        
+        
+        
+        self.add_command_processor_list(self._led_set.get_command_processors())
+        self.add_message_processor_list(self._led_set.get_message_processors())
+        self.add_stream_processor_list(self._led_set.get_stream_processors())
+
+
         
       #  self._remote_command_processor_list.append(
        #     RemoteProcessor(Cmd_ping(DeviceProtocol.CMD_PING), self.process_led_on_command))  +insert KED 
-
+        
+        
+    def decode_command(self, remote_command):
+        if isinstance(remote_command, Cmd_setLedBrightness):
+            print("led is bright")
+            ##self.process_ping_command(remote_command)
+            return True   
+        
         
         
     def run(self):
@@ -44,9 +77,11 @@ class MotionController(PicoDevice):
                 super().parse_data_packet(self._data_packet)  ## add to queue convert from there
                 self._received = False
                 
-            if (counter == 10):   
-                super().remote_ping_device()
-                counter = 0
+            if (counter == 10):
+                if not self.is_connected():
+                    super().remote_ping_device()
+                    counter = 0
+            
             counter +=1
             sleep(.5)
             #self.remote_ping_device()
@@ -67,7 +102,9 @@ class MotionController(PicoDevice):
   
         print("received")
         ## ToDo put into Queue !
-        self._received = True
-        self._data_packet = data_packet
+        if (data_packet.get_destination_address() == self._id):
+            self._received = True
+            self._data_packet = data_packet
+        else:
+            print("not for me", self._id )
 
-#print(remote_data)
