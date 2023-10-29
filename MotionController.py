@@ -13,9 +13,9 @@ MOTION_CONTROLLER_ID = 13
 import micropython
 
 #for led test
-from LegSensorsLedSet import LegSensorsLedSet
+from Config.LegSensorsLedSet import LegSensorsLedSet
 from RoboControl.Robot.Component.Actor.LedProtocol import Cmd_getLedBrightness, Cmd_setLedBrightness
-from LegSensorsProtocol import LegSensorsProtocol
+from Config.LegSensorsProtocol import LegSensorsProtocol
 
 class MotionController(PicoDevice):
     def __init__(self):

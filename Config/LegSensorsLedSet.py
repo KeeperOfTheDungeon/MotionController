@@ -1,5 +1,5 @@
 from Config import AntComponents
-from LedPico import LedSetPico
+from PicoControl.Robot.Component.LedPico import LedSetPico
 
 
 
