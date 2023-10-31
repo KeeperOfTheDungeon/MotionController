@@ -1,5 +1,23 @@
-from AntDeviceConfig import AntDeviceConfig
+MAIN_DATA_HUB_ID = 0
 
+LEG_CONTROLLER_ID = 10
+HEAD_SENSORS_ID = 11
+TAIL_BOARD_ID = 12
+LEG_SENSORS_ID = 13
+
+class AntDeviceConfig():
+
+    MAIN_DATA_HUB = {"DeviceId" : MAIN_DATA_HUB_ID,
+                     "DeviceName" : "Main Data Hub"}
+
+    HEAD_SENSORS = {"DeviceId" : HEAD_SENSORS_ID,
+                     "DeviceName" : "head sensors"}
+
+    LEG_CONTROLLER = {"DeviceId" : LEG_CONTROLLER_ID,
+                     "DeviceName" : "Motion Controller"}
+    
+    LEG_SENSORS = {"DeviceId" : LEG_SENSORS_ID,
+                     "DeviceName" : "leg sensors"}
 
 FRONT_LEFT_LEG_LED = {  # FRONT_LEFT_LEG_LED ("front left",1),
     "name": "front left",

@@ -1,4 +1,4 @@
-from machine import Pin, PWM
+from Config.AntConfig import AntDeviceConfig
 from MotionController import MotionController
 
 MOTION_CONTROLLER_ID = 13
@@ -10,11 +10,8 @@ def main():
     #pwm.duty_u16(32268)
 
     print("Start main()")
-    
-    meta_data = dict()
-    meta_data["DeviceId"] = MOTION_CONTROLLER_ID
-    meta_data["DeviceName"] = "Motion Controller"
-    device = MotionController(meta_data)
+
+    device = MotionController(AntDeviceConfig.LEG_SENSORS)
     device.run()
 
 main()
