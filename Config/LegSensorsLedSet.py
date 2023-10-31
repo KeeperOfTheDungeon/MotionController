@@ -22,7 +22,7 @@ class LegSensorsLedSet(LedSetPico):
             AntComponents.BACK_LEFT_LEG_LED,
             AntComponents.BACK_RIGHT_LEG_LED
         ]
-
-        super().__init__(actor_list, protocol)
+        pinlist =[18,19,20,21,22,23]
+        super().__init__(actor_list, pinlist, protocol)
 
 

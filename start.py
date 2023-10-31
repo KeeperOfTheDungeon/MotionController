@@ -1,6 +1,7 @@
 from machine import Pin, PWM
 from MotionController import MotionController
 
+MOTION_CONTROLLER_ID = 13
 
 def main():
     # possible clock
@@ -9,8 +10,11 @@ def main():
     #pwm.duty_u16(32268)
 
     print("Start main()")
-    device = MotionController()
+    
+    meta_data = dict()
+    meta_data["DeviceId"] = MOTION_CONTROLLER_ID
+    meta_data["DeviceName"] = "Motion Controller"
+    device = MotionController(meta_data)
     device.run()
-
 
 main()

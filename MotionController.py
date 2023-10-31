@@ -5,10 +5,9 @@ from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
 
 from RoboControl.Com.RemoteData import RemoteData
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
-from RoboControl.Robot.AbstractRobot.DeviceConfig import DeviceConfig
 
 
-MOTION_CONTROLLER_ID = 13
+
 
 import micropython
 
@@ -18,8 +17,8 @@ from RoboControl.Robot.Component.Actor.LedProtocol import Cmd_getLedBrightness, 
 from Config.LegSensorsProtocol import LegSensorsProtocol
 
 class MotionController(PicoDevice):
-    def __init__(self):
-        super().__init__(DeviceConfig(MOTION_CONTROLLER_ID, "MotionController"))
+    def __init__(self, device_meta_data):
+        super().__init__(device_meta_data)
         #self.connect(PicoConnection())
         meta_data = dict()
         print("init motion")
