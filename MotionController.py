@@ -13,7 +13,7 @@ import micropython
 
 #for led test
 from Config.LegSensorsLedSet import LegSensorsLedSet
-from RoboControl.Robot.Component.Actor.LedProtocol import Cmd_getLedBrightness, Cmd_setLedBrightness
+from Config.LegSensorsLightSensorSet import LegSensorsLightSensorSet
 from Config.LegSensorsProtocol import LegSensorsProtocol
 
 class MotionController(PicoDevice):
@@ -31,27 +31,45 @@ class MotionController(PicoDevice):
         self._data_packet = None
         
         #commection gest output
+        print(self._connection)
         self.set_transmitter(self._connection)
         
     def build(self):    
         super().build()
+        protocol = LegSensorsProtocol(self)
+
+
         # leds
         print("add led set")
-        self._protocol = LegSensorsProtocol(self)
-        self._led_set = LegSensorsLedSet(self._protocol.get_led_protocol())
+        self._led_set = LegSensorsLedSet(protocol.get_led_protocol())
         self.add_component_set(self._led_set)
-    #leds
-        self.build_led_protocol()
-    
+        print("self._light_sensor_set",self._led_set)
+        
+        
+        
+
+        #micropython.mem_info()
+        self._light_sensor_set = LegSensorsLightSensorSet(protocol.get_light_sensor_protocol())
+        self.add_component_set(self._light_sensor_set)
+        #micropython.mem_info()
+        #self.build_led_protocol()
+
+
+        self.add_component_protocols()
+
 
     
-    def build_led_protocol(self):
+    def add_component_protocols(self):
         print ("Dev : Build Protocol")
        
         self.add_command_processor_list(self._led_set.get_command_processors())
         self.add_message_processor_list(self._led_set.get_message_processors())
         self.add_stream_processor_list(self._led_set.get_stream_processors())
 
+     
+        self.add_command_processor_list(self._light_sensor_set.get_command_processors())
+        self.add_message_processor_list(self._light_sensor_set.get_message_processors())
+        self.add_stream_processor_list(self._light_sensor_set.get_stream_processors())
      
         
     def run(self):

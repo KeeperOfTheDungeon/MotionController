@@ -56,6 +56,28 @@ BACK_RIGHT_LEG_LED = {  # BACK_RIGHT_LED ("cack right",5),
 }
 
 
+
+LEFT_LIGHT_SENSOR = {  # BACK_RIGHT_LED ("cack right",5),
+    "name": "back right",
+    "local_id": 0,
+    "global_id": 0,
+}
+
+
+CENTER_LIGHT_SENSOR = {  # BACK_RIGHT_LED ("cack right",5),
+    "name": "back right",
+    "local_id": 1,
+    "global_id": 0,
+}
+
+RIGHT_LIGHT_SENSOR = {  # BACK_RIGHT_LED ("cack right",5),
+    "name": "back right",
+    "local_id": 2,
+    "global_id": 0,
+}
+
+
+
 class AntComponents:
     def __init__(self):
         pass

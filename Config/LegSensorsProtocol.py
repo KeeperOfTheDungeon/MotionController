@@ -82,3 +82,23 @@ class LegSensorsProtocol(DeviceProtocol):
         }
 
         return protocol
+
+
+    def get_light_sensor_protocol(self):
+        protocol = {
+            "device_id": self._device_id,
+            "cmd_setSettings": CMD_LED_SET_SETTINGS,
+            "cmd_getSettings": CMD_LED_GET_SETTINGS,
+            "cmd_saveDefaults": CMD_LED_SAVE_DEFAULTS,
+            "cmd_loadDefaults": CMD_LED_LOAD_DEFAULTS,
+            "cmd_getValue": CMD_LED_GET_VALUE,
+            "msg_settings": MSG_LED_SETTINGS,
+            "cmd_setBrightness": CMD_LED_SET_BRIGHTNESS,
+            "cmd_getBrightness": CMD_LED_GET_BRIGHTNESS,
+            "msg_brightness": MSG_LED_BRIGHTNESS,
+            "stream_brightness": STREAM_LED_BRIGHTNESS
+        }
+
+        return protocol
+
+
