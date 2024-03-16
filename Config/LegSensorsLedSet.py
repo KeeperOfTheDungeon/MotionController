@@ -2,8 +2,6 @@ from Config import AntConfig
 from PicoControl.Robot.Component.LedPico import LedSetPico
 
 
-
-
 class LegSensorsLedSet(LedSetPico):
 
     def __init__(self, protocol):
@@ -22,9 +20,7 @@ class LegSensorsLedSet(LedSetPico):
             AntConfig.BACK_LEFT_LEG_LED,
             AntConfig.BACK_RIGHT_LEG_LED
         ]
-        
-        pinlist =[18,19,20,21,22,23]
-        
+
+        pinlist = [18, 19, 20, 21, 22, 23]
+
         super().__init__(actor_list, pinlist, protocol)
-
-

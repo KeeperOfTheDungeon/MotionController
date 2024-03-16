@@ -5,19 +5,33 @@ HEAD_SENSORS_ID = 11
 TAIL_BOARD_ID = 12
 LEG_SENSORS_ID = 13
 
-class AntDeviceConfig():
 
-    MAIN_DATA_HUB = {"DeviceId" : MAIN_DATA_HUB_ID,
-                     "DeviceName" : "Main Data Hub"}
+class AntDeviceConfig:
+    MAIN_DATA_HUB = {"DeviceId": MAIN_DATA_HUB_ID,
+                     "DeviceName": "Main Data Hub"}
 
-    HEAD_SENSORS = {"DeviceId" : HEAD_SENSORS_ID,
-                     "DeviceName" : "head sensors"}
+    HEAD_SENSORS = {"DeviceId": HEAD_SENSORS_ID,
+                    "DeviceName": "head sensors"}
 
-    LEG_CONTROLLER = {"DeviceId" : LEG_CONTROLLER_ID,
-                     "DeviceName" : "Motion Controller"}
-    
-    LEG_SENSORS = {"DeviceId" : LEG_SENSORS_ID,
-                     "DeviceName" : "leg sensors"}
+    LEG_CONTROLLER = {"DeviceId": LEG_CONTROLLER_ID,
+                      "DeviceName": "Motion Controller"}
+
+    LEG_SENSORS = {"DeviceId": LEG_SENSORS_ID,
+                   "DeviceName": "leg sensors"}
+
+
+class HeadSensors:
+    FRONT_TMF882x_SENSOR = {
+        "name": "front",
+        "local_id": 1,
+        "global_id": 0,
+        "i2c_addr": 0x41
+    }
+
+    actor_list = [
+        FRONT_TMF882x_SENSOR
+    ]
+
 
 FRONT_LEFT_LEG_LED = {  # FRONT_LEFT_LEG_LED ("front left",1),
     "name": "front left",
@@ -55,14 +69,11 @@ BACK_RIGHT_LEG_LED = {  # BACK_RIGHT_LED ("cack right",5),
     "global_id": 0,
 }
 
-
-
 LEFT_LIGHT_SENSOR = {  # BACK_RIGHT_LED ("cack right",5),
     "name": "back right",
     "local_id": 0,
     "global_id": 0,
 }
-
 
 CENTER_LIGHT_SENSOR = {  # BACK_RIGHT_LED ("cack right",5),
     "name": "back right",
@@ -75,7 +86,6 @@ RIGHT_LIGHT_SENSOR = {  # BACK_RIGHT_LED ("cack right",5),
     "local_id": 2,
     "global_id": 0,
 }
-
 
 
 class AntComponents:
