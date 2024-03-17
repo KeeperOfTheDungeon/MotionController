@@ -3,8 +3,8 @@ import micropython
 
 from Config.HeadSensorsProtocol import HeadSensorsProtocol
 from Config.HeadSensorsTMF882xSet import HeadSensorsTMF882xSet
-from PicoControl.Com.PicoConnection import PicoConnection
 from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
+from PicoControl.com.PicoConnection import PicoConnection
 
 from RoboControl.Com.RemoteData import RemoteData
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
@@ -13,7 +13,6 @@ from Config.LegSensorsLedSet import LegSensorsLedSet
 from Config.LegSensorsLightSensorSet import LegSensorsLightSensorSet
 from Config.LegSensorsProtocol import LegSensorsProtocol
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
-
 
 from Config.LegControllerServoSet import LegControllerServoSet
 from Config.LegControllerProtocol import LegControllerProtocol
@@ -39,60 +38,52 @@ class MotionController(PicoDevice):
 
     def build(self):
         super().build()
-        sensor_protocol = LegSensorsProtocol(self)
-        controller_protocol = LegControllerProtocol(self)
-
+        # sensor_protocol = LegSensorsProtocol(self)
+        # controller_protocol = LegControllerProtocol(self)
 
         # LEDs
-        self._led_set = LegSensorsLedSet(sensor_protocol.get_led_protocol())
-        self.add_component_set(self._led_set)
-        print("self._light_sensor_set", self._led_set)
+        # self._led_set = LegSensorsLedSet(sensor_protocol.get_led_protocol())
+        # self.add_component_set(self._led_set)
+        # print("self._light_sensor_set", self._led_set)
 
         # Light sensors
-        self._light_sensor_set = LegSensorsLightSensorSet(sensor_protocol.get_light_sensor_protocol())
-        self.add_component_set(self._light_sensor_set)
+        #self._light_sensor_set = LegSensorsLightSensorSet(sensor_protocol.get_light_sensor_protocol())
+        #self.add_component_set(self._light_sensor_set)
 
         # Servos
-        self._servo_set = LegControllerServoSet(controller_protocol.get_servo_protocol())
-        self.add_component_set(self._servo_set)
+        # self._servo_set = LegControllerServoSet(controller_protocol.get_servo_protocol())
+        # self.add_component_set(self._servo_set)
 
         # ONLY USE EITHER OR ON THE TEST BOARD
 
         # Feedback servos
-        #self._feedback_servo_set = LegControllerFeedbackServoSet(controller_protocol.get_servo_protocol())
-        #self.add_component_set(self._feedback_servo_set)
+        # self._feedback_servo_set = LegControllerFeedbackServoSet(controller_protocol.get_servo_protocol())
+        # self.add_component_set(self._feedback_servo_set)
 
-
-        print("add tmf8821")
-        self._tmf8821_set = HeadSensorsTMF882xSet(protocol.get_tmf882x_protocol())
-        self.add_component_set(self._tmf8821_set)
+        # print("add tmf8821")
+        # self._tmf8821_set = HeadSensorsTMF882xSet(protocol.get_tmf882x_protocol())
+        # self.add_component_set(self._tmf8821_set)
 
         self.add_component_protocols()
 
     def add_component_protocols(self):
         print("Dev : Build Protocol")
 
-        #self.add_command_processor_list(self._led_set.get_command_processors())
-        #self.add_message_processor_list(self._led_set.get_message_processors())
-        #self.add_stream_processor_list(self._led_set.get_stream_processors())
+        # self.add_command_processor_list(self._led_set.get_command_processors())
+        # self.add_message_processor_list(self._led_set.get_message_processors())
+        # self.add_stream_processor_list(self._led_set.get_stream_processors())
 
-        #self.add_command_processor_list(self._light_sensor_set.get_command_processors())
-        #self.add_message_processor_list(self._light_sensor_set.get_message_processors())
-        #self.add_stream_processor_list(self._light_sensor_set.get_stream_processors())
-
-        self.add_command_processor_list(self._tmf8821_set.get_command_processors())
-        self.add_message_processor_list(self._tmf8821_set.get_message_processors())
-        self.add_stream_processor_list(self._tmf8821_set.get_stream_processors())
-
+        # self.add_command_processor_list(self._light_sensor_set.get_command_processors())
+        # self.add_message_processor_list(self._light_sensor_set.get_message_processors())
+        # self.add_stream_processor_list(self._light_sensor_set.get_stream_processors())
 
         self.add_command_processor_list(self._servo_set.get_command_processors())
         self.add_message_processor_list(self._servo_set.get_message_processors())
         self.add_stream_processor_list(self._servo_set.get_stream_processors())
 
-        #self.add_command_processor_list(self._feedback_servo_set.get_command_processors())
-        #self.add_message_processor_list(self._feedback_servo_set.get_message_processors())
-        #self.add_stream_processor_list(self._feedback_servo_set.get_stream_processors())
-
+        # self.add_command_processor_list(self._feedback_servo_set.get_command_processors())
+        # self.add_message_processor_list(self._feedback_servo_set.get_message_processors())
+        # self.add_stream_processor_list(self._feedback_servo_set.get_stream_processors())
 
     def run(self):
         print("device - run")
@@ -127,7 +118,7 @@ class MotionController(PicoDevice):
     def parse_data_packet(self, data_packet):
         print("received")
         ## ToDo put into Queue !
-        if (data_packet.get_destination_address() == self._id):
+        if data_packet.get_destination_address() == self._id:
             self._received = True
             self._data_packet = data_packet
             micropython.mem_info()
