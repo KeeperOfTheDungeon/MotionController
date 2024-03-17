@@ -34,22 +34,22 @@ class MotionController(PicoDevice):
 
     def build(self):
         super().build()
-        protocol = LegSensorsProtocol(self)
+        protocol = HeadSensorsProtocol(self)
 
         # leds
-        print("add led set")
-        self._led_set = LegSensorsLedSet(protocol.get_led_protocol())
-        self.add_component_set(self._led_set)
-        print("self._light_sensor_set", self._led_set)
+        #print("add led set")
+        #self._led_set = LegSensorsLedSet(protocol.get_led_protocol())
+        #self.add_component_set(self._led_set)
+        #print("self._light_sensor_set", self._led_set)
 
         # micropython.mem_info()
-        self._light_sensor_set = LegSensorsLightSensorSet(protocol.get_light_sensor_protocol())
-        self.add_component_set(self._light_sensor_set)
+        #self._light_sensor_set = LegSensorsLightSensorSet(protocol.get_light_sensor_protocol())
+        #self.add_component_set(self._light_sensor_set)
         # micropython.mem_info()
         # self.build_led_protocol()
 
         print("add tmf8821")
-        self._tmf8821_set = HeadSensorsTMF882xSet(HeadSensorsProtocol(self).get_tmf882x_protocol())
+        self._tmf8821_set = HeadSensorsTMF882xSet(protocol.get_tmf882x_protocol())
         self.add_component_set(self._tmf8821_set)
 
         self.add_component_protocols()
@@ -57,13 +57,13 @@ class MotionController(PicoDevice):
     def add_component_protocols(self):
         print("Dev : Build Protocol")
 
-        self.add_command_processor_list(self._led_set.get_command_processors())
-        self.add_message_processor_list(self._led_set.get_message_processors())
-        self.add_stream_processor_list(self._led_set.get_stream_processors())
+        #self.add_command_processor_list(self._led_set.get_command_processors())
+        #self.add_message_processor_list(self._led_set.get_message_processors())
+        #self.add_stream_processor_list(self._led_set.get_stream_processors())
 
-        self.add_command_processor_list(self._light_sensor_set.get_command_processors())
-        self.add_message_processor_list(self._light_sensor_set.get_message_processors())
-        self.add_stream_processor_list(self._light_sensor_set.get_stream_processors())
+        #self.add_command_processor_list(self._light_sensor_set.get_command_processors())
+        #self.add_message_processor_list(self._light_sensor_set.get_message_processors())
+        #self.add_stream_processor_list(self._light_sensor_set.get_stream_processors())
 
         self.add_command_processor_list(self._tmf8821_set.get_command_processors())
         self.add_message_processor_list(self._tmf8821_set.get_message_processors())
@@ -73,7 +73,7 @@ class MotionController(PicoDevice):
         print("device - run")
         counter = 0
         while True:
-            if self._received == True:
+            if self._received:
                 print("received : ", self._data_packet)
                 super().parse_data_packet(self._data_packet)  ## add to queue convert from there
                 self._received = False
