@@ -1,0 +1,1 @@
+{"1": {"is_at_min": false, "is_on": false, "is_calibrating": false, "min_range": -20000, "max_range": 28000, "scale": 17000, "inverted": false, "is_stalling": false, "calibrated": false, "active": false, "position_feedback": false, "calibrate_direction": 0, "offset": 4000, "speed": 20, "is_at_max": false, "force_feedback": false}}
