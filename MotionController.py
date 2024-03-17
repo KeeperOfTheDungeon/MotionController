@@ -17,6 +17,7 @@ from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
 
 from Config.LegControllerServoSet import LegControllerServoSet
 from Config.LegControllerProtocol import LegControllerProtocol
+from Config.LegControllerFeedbackServoSet import LegControllerFeedbackServoSet
 
 
 class MotionController(PicoDevice):
@@ -55,6 +56,13 @@ class MotionController(PicoDevice):
         self._servo_set = LegControllerServoSet(controller_protocol.get_servo_protocol())
         self.add_component_set(self._servo_set)
 
+        # ONLY USE EITHER OR ON THE TEST BOARD
+
+        # Feedback servos
+        #self._feedback_servo_set = LegControllerFeedbackServoSet(controller_protocol.get_servo_protocol())
+        #self.add_component_set(self._feedback_servo_set)
+
+
         print("add tmf8821")
         self._tmf8821_set = HeadSensorsTMF882xSet(HeadSensorsProtocol(self).get_tmf882x_protocol())
         self.add_component_set(self._tmf8821_set)
@@ -80,6 +88,10 @@ class MotionController(PicoDevice):
         self.add_command_processor_list(self._servo_set.get_command_processors())
         self.add_message_processor_list(self._servo_set.get_message_processors())
         self.add_stream_processor_list(self._servo_set.get_stream_processors())
+
+        #self.add_command_processor_list(self._feedback_servo_set.get_command_processors())
+        #self.add_message_processor_list(self._feedback_servo_set.get_message_processors())
+        #self.add_stream_processor_list(self._feedback_servo_set.get_stream_processors())
 
 
     def run(self):

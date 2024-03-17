@@ -110,6 +110,13 @@ TEST_SERVO = {
     "device_id": LEG_CONTROLLER_ID
 }
 
+TEST_FEEDBACK_SERVO = {
+    "name": "test feedback servo",
+    "local_id": 1,
+    "global_id": 0,
+    "device_id": LEG_CONTROLLER_ID
+}
+
 
 class AntComponents:
     def __init__(self):
