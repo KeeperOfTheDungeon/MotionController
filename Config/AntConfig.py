@@ -27,7 +27,7 @@ class HeadSensors:
         "i2c_addr": 0x41
     }
 
-    actor_list = [
+    sensor_list = [
         FRONT_TMF882x_SENSOR
     ]
 

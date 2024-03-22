@@ -8,7 +8,7 @@ class HeadSensorsTMF882xSet(TMF882xPicoSet):
         AntConfig.HeadSensors.FRONT_TMF882x_SENSOR["protocol"] = protocol
 
         super().__init__(
-            AntConfig.HeadSensors.actor_list,
-            [component["i2c_addr"] for component in AntConfig.HeadSensors.actor_list],
+            AntConfig.HeadSensors.sensor_list,
+            [component["i2c_addr"] for component in AntConfig.HeadSensors.sensor_list],
             protocol
         )

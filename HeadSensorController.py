@@ -10,13 +10,16 @@ class HeadSensorController(MotionController):
         self._tmf8821_set = None
 
     def build(self):
+        super().build()
         protocol = HeadSensorsProtocol(self)
 
-        print("add tmf8821")
         self._tmf8821_set = HeadSensorsTMF882xSet(protocol.get_tmf882x_protocol())
         self.add_component_set(self._tmf8821_set)
+        
+        self.add_component_protocols()
 
     def add_component_protocols(self):
+        super().add_component_protocols()
         self.add_command_processor_list(self._tmf8821_set.get_command_processors())
         self.add_message_processor_list(self._tmf8821_set.get_message_processors())
         self.add_stream_processor_list(self._tmf8821_set.get_stream_processors())

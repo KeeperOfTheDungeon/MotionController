@@ -4,7 +4,7 @@ import micropython
 from Config.HeadSensorsProtocol import HeadSensorsProtocol
 from Config.HeadSensorsTMF882xSet import HeadSensorsTMF882xSet
 from PicoControl.Robot.PicoDevice.PicoDevice import PicoDevice
-from PicoControl.com.PicoConnection import PicoConnection
+from PicoControl.Com.PicoConnection import PicoConnection
 
 from RoboControl.Com.RemoteData import RemoteData
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
@@ -13,10 +13,6 @@ from Config.LegSensorsLedSet import LegSensorsLedSet
 from Config.LegSensorsLightSensorSet import LegSensorsLightSensorSet
 from Config.LegSensorsProtocol import LegSensorsProtocol
 from RoboControl.Com.RemoteDataPacket import RemoteDataPacket
-
-from Config.LegControllerServoSet import LegControllerServoSet
-from Config.LegControllerProtocol import LegControllerProtocol
-from Config.LegControllerFeedbackServoSet import LegControllerFeedbackServoSet
 
 
 class MotionController(PicoDevice):
@@ -64,8 +60,6 @@ class MotionController(PicoDevice):
         # self._tmf8821_set = HeadSensorsTMF882xSet(protocol.get_tmf882x_protocol())
         # self.add_component_set(self._tmf8821_set)
 
-        self.add_component_protocols()
-
     def add_component_protocols(self):
         print("Dev : Build Protocol")
 
@@ -77,9 +71,9 @@ class MotionController(PicoDevice):
         # self.add_message_processor_list(self._light_sensor_set.get_message_processors())
         # self.add_stream_processor_list(self._light_sensor_set.get_stream_processors())
 
-        self.add_command_processor_list(self._servo_set.get_command_processors())
-        self.add_message_processor_list(self._servo_set.get_message_processors())
-        self.add_stream_processor_list(self._servo_set.get_stream_processors())
+        #self.add_command_processor_list(self._servo_set.get_command_processors())
+        #self.add_message_processor_list(self._servo_set.get_message_processors())
+        #self.add_stream_processor_list(self._servo_set.get_stream_processors())
 
         # self.add_command_processor_list(self._feedback_servo_set.get_command_processors())
         # self.add_message_processor_list(self._feedback_servo_set.get_message_processors())
@@ -89,7 +83,7 @@ class MotionController(PicoDevice):
         print("device - run")
         counter = 0
         while True:
-            if self._received:
+            if self._received :
                 print("received : ", self._data_packet)
                 super().parse_data_packet(self._data_packet)  ## add to queue convert from there
                 self._received = False

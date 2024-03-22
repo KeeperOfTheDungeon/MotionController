@@ -15,7 +15,6 @@ STREAM_TMF882x_DISTANCE_VALUES = 0x20
 STREAM_TMF882x_TEMPERATURE_VALUES = 0x21
 
 
-
 class HeadSensorsProtocol(DeviceProtocol):
 
     def __init__(self, head_sensors):
