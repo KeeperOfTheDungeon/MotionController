@@ -4,3 +4,6 @@
 [submodule "PicoControl"]
 	path = PicoControl
 	url = https://github.com/KeeperOfTheDungeon/PicoControl.git
+[submodule "TMF882X Library"]
+    path = PicoControl/Com/tmf882x
+    url = https://github.com/K1ngGrim/tmf882X_micropython.git
